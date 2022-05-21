@@ -1,0 +1,32 @@
+syntax = "proto3";
+package coolcar;
+option go_package = 'coolcar/learn/proto/gen/go;testpb';
+message Location {
+    double latitude = 1;
+    double longitude = 2;
+}
+enum TestStatus {
+     TS_NOT_SPECIFIED = 0;
+     A = 1;
+     B = 2;
+     C = 3;
+}
+message Test {
+     string start = 1;
+     Location start_pos = 5;
+     repeated Location end_pos = 6;  //编译位数组切片 数组每个元素为Location
+     string end = 2;
+     int32 duration_sec = 3;
+     int32 fee_cent = 4;
+     TestStatus status = 7;
+}
+message GetTestRequest {
+    string id = 1;
+}
+message GetTestResponse {
+    string id = 1;
+    Test test = 2;
+}
+service TestService {
+    rpc getTest (GetTestRequest) returns (GetTestResponse);
+}
